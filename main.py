@@ -1,6 +1,4 @@
 # main.py --- contains main run loop and basic variable declarations (including state monitoring)
-
-from pieces import *
 from board import BoardController
 
 whiteToPlay = True
@@ -33,7 +31,7 @@ while Running:
         x2 = labelsX.index(move[3])
         y2 = 8 - int(move[4])
 
-        boardController.board[y1][x1].move(boardController.board, [y2, x2])
+        boardController.movePiece(move)
         whiteToPlay = not whiteToPlay
 
 # e2 -> 46 -> 64

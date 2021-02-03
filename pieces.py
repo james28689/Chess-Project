@@ -9,14 +9,6 @@ class Piece:
 
     def getName(self):
         return self.name
-
-    def move(self, board, newPos):
-        if newPos in self.getMoves(board):
-            movePiece(self.pos, newPos, board)
-            self.pos = newPos
-            self.moveNo += 1
-        else:
-            print("Invalid move")
     
     def getMoves(self, board):
         # Non-implemented: - Implemented in child classes
@@ -54,8 +46,3 @@ class Pawn(Piece):
 class Rook(Piece):
     def getMoves(self, board):
         print("Beep boop.")
-
-
-def movePiece(pos, newPos, board):
-    board[newPos[0]][newPos[1]] = board[pos[0]][pos[1]]
-    board[pos[0]][pos[1]] = "--"

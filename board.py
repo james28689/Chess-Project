@@ -34,13 +34,36 @@ class BoardController:
         for line in self.board:
             lineStr = ""
             for piece in line:
-                if type(piece) == str:
-                    lineStr += piece + " "
+                if piece == None:
+                    lineStr += "-- "
                 else:
-                    lineStr += piece.getName() + " "
+                    if type(piece) == str:
+                        lineStr += piece + " "
+                    else:
+                        lineStr += piece.getName() + " "
             print(lineStr)
     
-    def movePiece(self, piecePos):
+    def movePiece(self, move):
         # Allows for the moving of pieces on the board.
 
-        piece = self.board[piecePos[0], piecePos[1]]
+        labelsX = "abcdefgh"
+        x1 = labelsX.index(move[0])
+        y1 = 8 - int(move[1])
+
+        x2 = labelsX.index(move[3])
+        y2 = 8 - int(move[4])
+
+        posDown = x1
+        posAlong = y1
+
+        newPosDown = x2
+        newPosAlong = y2
+
+        if type(self.board[posDown][posAlong]) == str:
+            print("This cannot be moved, this piece type has not yet been created.")
+        else:
+            if [newPosDown, newPosAlong] in self.board[posDown][posAlong].getMoves(self.board):
+                self.board[newPosDown][newPosAlong] = self.board[posDown][posAlong]
+                self.board[posDown][posAlong] = None
+            else:
+                print("Invalid move.")
