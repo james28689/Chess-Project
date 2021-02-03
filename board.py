@@ -1,5 +1,5 @@
 # board.py --- includes any code related to the setup and monitoring of the board.
-from pieces import Pawn
+from pieces import Piece, Pawn, Rook
 
 # REFACTORED:
 
@@ -7,26 +7,30 @@ class BoardController:
     def __init__(self):
         # Setups the board upon creation of the board controller. Once all pieces are implemented, simple strings will be replaced with children of the Piece object.
 
-        self.board = [["--" for i in range(8)] for i in range(8)]
+        self.board = [[None for i in range(8)] for i in range(8)]
 
         for piece in self.board[1]:
-            self.board[1][self.board[1].index(piece)] = Pawn(
-                "pawn", [1, self.board[1].index(piece)], "black")
+            self.board[1][self.board[1].index(piece)] = Pawn([1, self.board[1].index(piece)], "black")
         for piece in self.board[6]:
-            self.board[6][self.board[6].index(piece)] = Pawn(
-                "pawn", [6, self.board[6].index(piece)], "white")
+            self.board[6][self.board[6].index(piece)] = Pawn([6, self.board[6].index(piece)], "white")
 
-        self.board[0][0] = self.board[0][7] = "bR"
-        self.board[0][1] = self.board[0][6] = "bN"
-        self.board[0][2] = self.board[0][5] = "bB"
-        self.board[0][3] = "bK"
-        self.board[0][4] = "bQ"
+        self.board[0][0] = Rook([0, 0], "black")
+        self.board[0][7] = Rook([0, 7], "black")
+        self.board[0][1] = Piece([0, 1], "black") # black knight
+        self.board[0][6] = Piece([0, 6], "black") # black knight
+        self.board[0][2] = Piece([0, 2], "black") # black bishop
+        self.board[0][5] = Piece([0, 5], "black") # black bishop
+        self.board[0][3] = Piece([0, 3], "black") # black king
+        self.board[0][4] = Piece([0, 4], "black") # black queen
 
-        self.board[7][0] = self.board[7][7] = "wR"
-        self.board[7][1] = self.board[7][6] = "wN"
-        self.board[7][2] = self.board[7][5] = "wB"
-        self.board[7][3] = "wK"
-        self.board[7][4] = "wQ"
+        self.board[7][0] = Rook([7, 0], "white")
+        self.board[7][7] = Rook([7, 7], "white")
+        self.board[7][1] = Piece([7, 1], "white") # white knight
+        self.board[7][6] = Piece([7, 6], "white") # white knight
+        self.board[7][2] = Piece([7, 2], "white") # white bishop
+        self.board[7][5] = Piece([7, 5], "white") # white bishop
+        self.board[7][3] = Piece([7, 3], "white") # white king
+        self.board[7][4] = Piece([7, 4], "white") # white queen
     
     def display(self):
         # Displays the board contained within the controller. Type checking to be removed once all pieces are implemented.
@@ -43,7 +47,7 @@ class BoardController:
                         lineStr += piece.getName() + " "
             print(lineStr)
     
-    def movePiece(self, move):
+    def movePiece(self, move, whiteToPlay):
         # Allows for the moving of pieces on the board.
 
         labelsX = "abcdefgh"
@@ -53,16 +57,19 @@ class BoardController:
         x2 = labelsX.index(move[3])
         y2 = 8 - int(move[4])
 
-        posDown = x1
-        posAlong = y1
+        posDown = y1
+        posAlong = x1
 
-        newPosDown = x2
-        newPosAlong = y2
+        newPosDown = y2
+        newPosAlong = x2
+
+        neededColor = "white" if whiteToPlay else "black"
 
         if type(self.board[posDown][posAlong]) == str:
             print("This cannot be moved, this piece type has not yet been created.")
         else:
-            if [newPosDown, newPosAlong] in self.board[posDown][posAlong].getMoves(self.board):
+            if [newPosDown, newPosAlong] in self.board[posDown][posAlong].getMoves(self.board) and self.board[posDown][posAlong].colour == neededColor:
+                self.board[posDown][posAlong].pos = [newPosDown, newPosAlong]
                 self.board[newPosDown][newPosAlong] = self.board[posDown][posAlong]
                 self.board[posDown][posAlong] = None
             else:

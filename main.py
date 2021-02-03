@@ -20,18 +20,11 @@ while Running:
     if move == "Q" or move == "q":
         Running = False
     elif move == "I" or move == "i":
-        print("A move consists of 3 parts: the piece type, it's current position, and your requested position.")
+        print("A move consists of 3 parts: the piece's current position, and your requested position.")
         print(
             "An example move would be: e2 e4 - where the piece at e2 moves to e4")
     else:
-        labelsX = "abcdefgh"
-        x1 = labelsX.index(move[0])
-        y1 = 8 - int(move[1])
-
-        x2 = labelsX.index(move[3])
-        y2 = 8 - int(move[4])
-
-        boardController.movePiece(move)
+        boardController.movePiece(move, whiteToPlay)
         whiteToPlay = not whiteToPlay
 
 # e2 -> 46 -> 64
