@@ -81,60 +81,7 @@ class Rook(Piece):
         self.name = colour[0].lower() + "R"
 
     def getMoves(self, board):
-        possibleMoves = []
-        superSearching = True
-        searching1 = True
-        searching2 = True
-        searching3 = True
-        searching4 = True
-        count = 1
-
-        while superSearching:
-            if not searching1 and not searching2 and not searching3 and not searching4:
-                superSearching = False
-            else:
-                if searching1:
-                    if self.pos[0] - count < 0:
-                        searching1 = False
-                    else:
-                        if board[self.pos[0] - count][self.pos[1]] == None:
-                            possibleMoves.append([self.pos[0] - count, self.pos[1]])
-                        else:
-                            if board[self.pos[0] - count][self.pos[1]].colour != self.colour:
-                                possibleMoves.append([self.pos[0] - count, self.pos[1]])
-                            searching1 = False
-                if searching2:
-                    if self.pos[1] + count > 7:
-                        searching2 = False
-                    else:
-                        if board[self.pos[0]][self.pos[1] + count] == None:
-                            possibleMoves.append([self.pos[0], self.pos[1] + count])
-                        else:
-                            if board[self.pos[0]][self.pos[1] + count].colour != self.colour:
-                                possibleMoves.append([self.pos[0], self.pos[1] + count])
-                            searching2 = False
-                if searching3:
-                    if self.pos[0] + count > 7:
-                        searching3 = False
-                    else:
-                        if board[self.pos[0] + count][self.pos[1]] == None:
-                            possibleMoves.append([self.pos[0] + count, self.pos[1]])
-                        else:
-                            if board[self.pos[0] + count][self.pos[1]].colour != self.colour:
-                                possibleMoves.append([self.pos[0] + count, self.pos[1]])
-                            searching3 = False
-                if searching4:
-                    if self.pos[1] - count < 0:
-                        searching4 = False
-                    else:
-                        if board[self.pos[0]][self.pos[1] - count] == None:
-                            possibleMoves.append([self.pos[0], self.pos[1] - count])
-                        else:
-                            if board[self.pos[0]][self.pos[1] - count].colour != self.colour:
-                                possibleMoves.append([self.pos[0], self.pos[1] - count])
-                            searching4 = False
-                count += 1
-        return possibleMoves
+        return getRookMoves(self.pos, board, self.colour)
                 
 
 class Bishop(Piece):
@@ -143,61 +90,7 @@ class Bishop(Piece):
         self.name = colour[0].lower() + "B"
     
     def getMoves(self, board):
-        possibleMoves = []
-        superSearching = True
-        searching1 = True
-        searching2 = True
-        searching3 = True
-        searching4 = True
-        count = 1
-
-        while superSearching:
-            if not searching1 and not searching2 and not searching3 and not searching4:
-                superSearching = False
-            else:
-                if searching1:
-                    if self.pos[0] - count < 0 or self.pos[1] - count < 0:
-                        searching1 = False
-                    else:
-                        if board[self.pos[0] - count][self.pos[1] - count] == None:
-                            possibleMoves.append([self.pos[0] - count, self.pos[1] - count])
-                        else:
-                            if board[self.pos[0] - count][self.pos[1] - count].colour != self.colour:
-                                possibleMoves.append([self.pos[0] - count, self.pos[1] - count])
-                            searching1 = False
-                if searching2:
-                    if self.pos[0] - count < 0 or self.pos[1] + count > 7:
-                        searching2 = False
-                    else:
-                        if board[self.pos[0] - count][self.pos[1] + count] == None:
-                            possibleMoves.append([self.pos[0] - count, self.pos[1] + count])
-                        else:
-                            if board[self.pos[0] - count][self.pos[1] + count].colour != self.colour:
-                                possibleMoves.append([self.pos[0] - count, self.pos[1] + count])
-                            searching2 = False
-                if searching3:
-                    if self.pos[0] + count > 7 or self.pos[1] + count > 7:
-                        searching3 = False
-                    else:
-                        if board[self.pos[0] + count][self.pos[1] + count] == None:
-                            possibleMoves.append([self.pos[0] + count, self.pos[1] + count])
-                        else:
-                            if board[self.pos[0] + count][self.pos[1] + count].colour != self.colour:
-                                possibleMoves.append([self.pos[0] + count, self.pos[1] + count])
-                            searching3 = False
-                if searching4:
-                    if self.pos[0] + count > 7 or self.pos[1] - count < 0:
-                        searching4 = False
-                    else:
-                        if board[self.pos[0] + count][self.pos[1] - count] == None:
-                            possibleMoves.append([self.pos[0] + count, self.pos[1] - count])
-                        else:
-                            if board[self.pos[0] + count][self.pos[1] - count].colour != self.colour:
-                                possibleMoves.append([self.pos[0] + count, self.pos[1] - count])
-                            searching4 = False
-                count += 1
-        print(possibleMoves)
-        return possibleMoves
+        return getBishopMoves(self.pos, board, self.colour)
 
 class Knight(Piece):
     def __init__(self, pos, colour):
@@ -217,3 +110,123 @@ class Knight(Piece):
                     if board[newProposedPos[0]][newProposedPos[1]].colour != self.colour:
                         possibleMoves.append(newProposedPos)
         return possibleMoves
+
+class Queen(Piece):
+    def __init__(self, pos, colour):
+        super().__init__(pos, colour)
+        self.name = colour[0].lower() + "Q"
+    
+    def getMoves(self, board):
+        return getRookMoves(self.pos, board, self.colour) + getBishopMoves(self.pos, board, self.colour)
+
+def getRookMoves(pos, board, colour):
+    possibleMoves = []
+    superSearching = True
+    searching1 = True
+    searching2 = True
+    searching3 = True
+    searching4 = True
+    count = 1
+
+    while superSearching:
+        if not searching1 and not searching2 and not searching3 and not searching4:
+            superSearching = False
+        else:
+            if searching1:
+                if pos[0] - count < 0:
+                    searching1 = False
+                else:
+                    if board[pos[0] - count][pos[1]] == None:
+                        possibleMoves.append([pos[0] - count, pos[1]])
+                    else:
+                        if board[pos[0] - count][pos[1]].colour != colour:
+                            possibleMoves.append([pos[0] - count, pos[1]])
+                        searching1 = False
+            if searching2:
+                if pos[1] + count > 7:
+                    searching2 = False
+                else:
+                    if board[pos[0]][pos[1] + count] == None:
+                        possibleMoves.append([pos[0], pos[1] + count])
+                    else:
+                        if board[pos[0]][pos[1] + count].colour != colour:
+                            possibleMoves.append([pos[0], pos[1] + count])
+                        searching2 = False
+            if searching3:
+                if pos[0] + count > 7:
+                    searching3 = False
+                else:
+                    if board[pos[0] + count][pos[1]] == None:
+                        possibleMoves.append([pos[0] + count, pos[1]])
+                    else:
+                        if board[pos[0] + count][pos[1]].colour != colour:
+                            possibleMoves.append([pos[0] + count, pos[1]])
+                        searching3 = False
+            if searching4:
+                if pos[1] - count < 0:
+                    searching4 = False
+                else:
+                    if board[pos[0]][pos[1] - count] == None:
+                        possibleMoves.append([pos[0], pos[1] - count])
+                    else:
+                        if board[pos[0]][pos[1] - count].colour != colour:
+                            possibleMoves.append([pos[0], pos[1] - count])
+                        searching4 = False
+            count += 1
+    return possibleMoves
+
+def getBishopMoves(pos, board, colour):
+    possibleMoves = []
+    superSearching = True
+    searching1 = True
+    searching2 = True
+    searching3 = True
+    searching4 = True
+    count = 1
+
+    while superSearching:
+        if not searching1 and not searching2 and not searching3 and not searching4:
+            superSearching = False
+        else:
+            if searching1:
+                if pos[0] - count < 0 or pos[1] - count < 0:
+                    searching1 = False
+                else:
+                    if board[pos[0] - count][pos[1] - count] == None:
+                        possibleMoves.append([pos[0] - count, pos[1] - count])
+                    else:
+                        if board[pos[0] - count][pos[1] - count].colour != colour:
+                            possibleMoves.append([pos[0] - count, pos[1] - count])
+                        searching1 = False
+            if searching2:
+                if pos[0] - count < 0 or pos[1] + count > 7:
+                    searching2 = False
+                else:
+                    if board[pos[0] - count][pos[1] + count] == None:
+                        possibleMoves.append([pos[0] - count, pos[1] + count])
+                    else:
+                        if board[pos[0] - count][pos[1] + count].colour != colour:
+                            possibleMoves.append([pos[0] - count, pos[1] + count])
+                        searching2 = False
+            if searching3:
+                if pos[0] + count > 7 or pos[1] + count > 7:
+                    searching3 = False
+                else:
+                    if board[pos[0] + count][pos[1] + count] == None:
+                        possibleMoves.append([pos[0] + count, pos[1] + count])
+                    else:
+                        if board[pos[0] + count][pos[1] + count].colour != colour:
+                            possibleMoves.append([pos[0] + count, pos[1] + count])
+                        searching3 = False
+            if searching4:
+                if pos[0] + count > 7 or pos[1] - count < 0:
+                    searching4 = False
+                else:
+                    if board[pos[0] + count][pos[1] - count] == None:
+                        possibleMoves.append([pos[0] + count, pos[1] - count])
+                    else:
+                        if board[pos[0] + count][pos[1] - count].colour != colour:
+                            possibleMoves.append([pos[0] + count, pos[1] - count])
+                        searching4 = False
+            count += 1
+    return possibleMoves

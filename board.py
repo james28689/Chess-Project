@@ -1,5 +1,5 @@
 # board.py --- includes any code related to the setup and monitoring of the board.
-from pieces import Knight, Piece, Pawn, Rook, Bishop
+from pieces import Piece, Pawn, Rook, Bishop, Knight, Queen
 
 # REFACTORED:
 
@@ -21,7 +21,7 @@ class BoardController:
         self.board[0][2] = Bishop([0, 2], "black") # black bishop
         self.board[0][5] = Bishop([0, 5], "black") # black bishop
         self.board[0][3] = Piece([0, 3], "black") # black king
-        self.board[0][4] = Piece([0, 4], "black") # black queen
+        self.board[0][4] = Queen([0, 4], "black") # black queen
 
         self.board[7][0] = Rook([7, 0], "white")
         self.board[7][7] = Rook([7, 7], "white")
@@ -30,7 +30,7 @@ class BoardController:
         self.board[7][2] = Bishop([7, 2], "white") # white bishop
         self.board[7][5] = Bishop([7, 5], "white") # white bishop
         self.board[7][3] = Piece([7, 3], "white") # white king
-        self.board[7][4] = Piece([7, 4], "white") # white queen
+        self.board[7][4] = Queen([7, 4], "white") # white queen
     
     def display(self):
         # Displays the board contained within the controller. Type checking to be removed once all pieces are implemented.
