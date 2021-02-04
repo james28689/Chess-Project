@@ -119,6 +119,24 @@ class Queen(Piece):
     def getMoves(self, board):
         return getRookMoves(self.pos, board, self.colour) + getBishopMoves(self.pos, board, self.colour)
 
+class King(Piece):
+    def __init__(self, pos, colour):
+        super().__init__(pos, colour)
+        self.name = colour[0].lower() + "K"
+    
+    def getMoves(self, board):
+        possibleMoves = getKingMoves(self.pos, board, self.colour, self.moveNo)
+
+        allMoves = checkAllMoves(board, self.colour)
+
+        for move in possibleMoves:
+            if move in allMoves:
+                possibleMoves.remove(move)
+
+        print(possibleMoves)
+        return possibleMoves
+
+
 def getRookMoves(pos, board, colour):
     possibleMoves = []
     superSearching = True
@@ -230,3 +248,36 @@ def getBishopMoves(pos, board, colour):
                         searching4 = False
             count += 1
     return possibleMoves
+
+def getKingMoves(pos, board, colour, moveNo):
+    possibleMoves = []
+    allRelativeMoves = [[-1,0], [-1,1], [0,1], [1,1], [1,0], [1,-1], [0,-1], [-1,-1]]
+
+    if moveNo == 0:
+        allRelativeMoves.append([0,-2])
+    
+    for relativeMove in allRelativeMoves:
+        newProposedPos = [pos[0] + relativeMove[0], pos[1] + relativeMove[1]]
+        if not(newProposedPos[0] < 0 or newProposedPos[0] > 7 or newProposedPos[1] < 0 or newProposedPos[1] > 7):
+            if board[newProposedPos[0]][newProposedPos[1]] == None:
+                possibleMoves.append(newProposedPos)
+            else:
+                if board[newProposedPos[0]][newProposedPos[1]].colour != colour:
+                    possibleMoves.append(newProposedPos)
+    allRelativeMoves = [[-1,0], [-1,1], [0,1], [1,1], [1,0], [1,-1], [0,-1], [-1,-1]]
+    return possibleMoves
+
+def checkAllMoves(board, colour):
+    allMoves = []
+    for line in board:
+        for piece in line:
+            if piece != None:
+                if piece.colour != colour:
+                    if type(Piece) == type(King):
+                        pieceMoves = getKingMoves(piece.pos, board, piece.colour, piece.moveNo)
+                    else:
+                        pieceMoves = piece.getMoves(board)
+                    if len(pieceMoves) != 0:
+                        for move in pieceMoves:
+                            allMoves.append(move)
+    return allMoves

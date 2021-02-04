@@ -1,5 +1,5 @@
 # board.py --- includes any code related to the setup and monitoring of the board.
-from pieces import Piece, Pawn, Rook, Bishop, Knight, Queen
+from pieces import Piece, Pawn, Rook, Bishop, Knight, Queen, King
 
 # REFACTORED:
 
@@ -20,7 +20,7 @@ class BoardController:
         self.board[0][6] = Knight([0, 6], "black") # black knight
         self.board[0][2] = Bishop([0, 2], "black") # black bishop
         self.board[0][5] = Bishop([0, 5], "black") # black bishop
-        self.board[0][3] = Piece([0, 3], "black") # black king
+        self.board[0][3] = King([0, 3], "black") # black king
         self.board[0][4] = Queen([0, 4], "black") # black queen
 
         self.board[7][0] = Rook([7, 0], "white")
@@ -29,7 +29,7 @@ class BoardController:
         self.board[7][6] = Knight([7, 6], "white") # white knight
         self.board[7][2] = Bishop([7, 2], "white") # white bishop
         self.board[7][5] = Bishop([7, 5], "white") # white bishop
-        self.board[7][3] = Piece([7, 3], "white") # white king
+        self.board[7][3] = King([7, 3], "white") # white king
         self.board[7][4] = Queen([7, 4], "white") # white queen
     
     def display(self):
@@ -70,6 +70,7 @@ class BoardController:
             return False
         else:
             if [newPosDown, newPosAlong] in self.board[posDown][posAlong].getMoves(self.board) and self.board[posDown][posAlong].colour == neededColor:
+                self.board[posDown][posAlong].moveNo += 1
                 self.board[posDown][posAlong].pos = [newPosDown, newPosAlong]
                 self.board[newPosDown][newPosAlong] = self.board[posDown][posAlong]
                 self.board[posDown][posAlong] = None

@@ -1,5 +1,6 @@
 # main.py --- contains main run loop and basic variable declarations (including state monitoring)
 from board import BoardController
+from pieces import checkAllMoves
 
 whiteToPlay = True
 boardController = BoardController()
