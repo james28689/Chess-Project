@@ -1,9 +1,11 @@
 # main.py --- contains main run loop and basic variable declarations (including state monitoring)
 from board import BoardController
-from pieces import checkAllMoves
+from logging import Logger
 
 whiteToPlay = True
 boardController = BoardController()
+logger = Logger()
+turn = 0
 Running = True
 
 while Running:
@@ -26,6 +28,8 @@ while Running:
             "An example move would be: e2 e4 - where the piece at e2 moves to e4")
     else:
         if boardController.movePiece(move, whiteToPlay):
+            if whiteToPlay:
+                turn += 1
+            logger.addLine(move, boardController.board, turn)
             whiteToPlay = not whiteToPlay
 
-# e2 -> 46 -> 64
