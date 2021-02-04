@@ -1,6 +1,9 @@
 # pieces.py --- includes all class declarations for the various chess pieces
 # TODO: - Clean up disgusting code in getMoves() for Pawn and Rook.
 
+from typing import Set
+
+
 class Piece:
     def __init__(self, pos, colour):
         self.pos = pos
@@ -146,4 +149,66 @@ class Rook(Piece):
                     possibleMoves.append([yPos, self.pos[1]])
                 searching4 = False
         
+        return possibleMoves
+
+class Bishop(Piece):
+    def __init__(self, pos, colour):
+        super().__init__(pos, colour)
+        self.name = colour[0].lower() + "B"
+    
+    def getMoves(self, board):
+        possibleMoves = []
+        superSearching = True
+        searching1 = True
+        searching2 = True
+        searching3 = True
+        searching4 = True
+        count = 1
+
+        while superSearching:
+            if not searching1 and not searching2 and not searching3 and not searching4:
+                superSearching = False
+            else:
+                if searching1:
+                    if self.pos[0] - count < 0 or self.pos[1] - count < 0:
+                        searching1 = False
+                    else:
+                        if board[self.pos[0] - count][self.pos[1] - count] == None:
+                            possibleMoves.append([self.pos[0] - count, self.pos[1] - count])
+                        else:
+                            if board[self.pos[0] - count][self.pos[1] - count].colour != self.colour:
+                                possibleMoves.append([self.pos[0] - count, self.pos[1] - count])
+                            searching1 = False
+                if searching2:
+                    if self.pos[0] - count < 0 or self.pos[1] + count > 7:
+                        searching2 = False
+                    else:
+                        if board[self.pos[0] - count][self.pos[1] + count] == None:
+                            possibleMoves.append([self.pos[0] - count, self.pos[1] + count])
+                        else:
+                            if board[self.pos[0] - count][self.pos[1] + count].colour != self.colour:
+                                possibleMoves.append([self.pos[0] - count, self.pos[1] + count])
+                            searching2 = False
+                if searching3:
+                    if self.pos[0] + count > 7 or self.pos[1] + count > 7:
+                        searching3 = False
+                    else:
+                        if board[self.pos[0] + count][self.pos[1] + count] == None:
+                            possibleMoves.append([self.pos[0] + count, self.pos[1] + count])
+                        else:
+                            if board[self.pos[0] + count][self.pos[1] + count].colour != self.colour:
+                                possibleMoves.append([self.pos[0] + count, self.pos[1] + count])
+                            searching3 = False
+                if searching4:
+                    if self.pos[0] + count > 7 or self.pos[1] - count < 0:
+                        searching4 = False
+                    else:
+                        if board[self.pos[0] + count][self.pos[1] - count] == None:
+                            possibleMoves.append([self.pos[0] + count, self.pos[1] - count])
+                        else:
+                            if board[self.pos[0] + count][self.pos[1] - count].colour != self.colour:
+                                possibleMoves.append([self.pos[0] + count, self.pos[1] - count])
+                            searching4 = False
+                count += 1
+        print(possibleMoves)
         return possibleMoves
