@@ -82,74 +82,60 @@ class Rook(Piece):
 
     def getMoves(self, board):
         possibleMoves = []
-        print(self.pos)
-        # Along - right then left
-        searching = True
-        count = 1
-        while searching:
-            xPos = self.pos[1] + count
-            if xPos > 7 or xPos < 0:
-                searching = False
-                break
-            
-            if board[self.pos[0]][xPos] == None:
-                possibleMoves.append([self.pos[0], xPos])
-                count += 1
-            else:
-                if board[self.pos[0]][xPos].colour != self.colour:
-                    possibleMoves.append([self.pos[0], xPos])
-                searching = False
-
+        superSearching = True
+        searching1 = True
         searching2 = True
-        count2 = 1
-        while searching2:
-            xPos = self.pos[1] - count2
-            if xPos > 7 or xPos < 0:
-                searching2 = False
-                break
-
-            if board[self.pos[0]][xPos] == None:
-                possibleMoves.append([self.pos[0], xPos])
-                count2 += 1
-            else:
-                if board[self.pos[0]][xPos].colour != self.colour:
-                    possibleMoves.append([self.pos[0], xPos])
-                searching2 = False
-
-        # Down - up then down
         searching3 = True
-        count3 = 1
-        while searching3:
-            yPos = self.pos[0] - count3
-            if yPos > 7 or yPos < 0:
-                searching3 = False
-                break
-            
-            if board[yPos][self.pos[1]] == None:
-                possibleMoves.append([yPos, self.pos[1]])
-                count3 += 1
-            else:
-                if board[yPos][self.pos[1]].colour != self.colour:
-                    possibleMoves.append([yPos, self.pos[1]])
-                searching3 = False
-
         searching4 = True
-        count4 = 1
-        while searching4:
-            yPos = self.pos[1] - count4
-            if yPos > 7 or yPos < 0:
-                searching4 = False
-                break
+        count = 1
 
-            if board[yPos][self.pos[1]] == None:
-                possibleMoves.append([yPos, self.pos[1]])
-                count4 += 1
+        while superSearching:
+            if not searching1 and not searching2 and not searching3 and not searching4:
+                superSearching = False
             else:
-                if board[yPos][self.pos[1]].colour != self.colour:
-                    possibleMoves.append([yPos, self.pos[1]])
-                searching4 = False
-        
+                if searching1:
+                    if self.pos[0] - count < 0:
+                        searching1 = False
+                    else:
+                        if board[self.pos[0] - count][self.pos[1]] == None:
+                            possibleMoves.append([self.pos[0] - count, self.pos[1]])
+                        else:
+                            if board[self.pos[0] - count][self.pos[1]].colour != self.colour:
+                                possibleMoves.append([self.pos[0] - count, self.pos[1]])
+                            searching1 = False
+                if searching2:
+                    if self.pos[1] + count > 7:
+                        searching2 = False
+                    else:
+                        if board[self.pos[0]][self.pos[1] + count] == None:
+                            possibleMoves.append([self.pos[0], self.pos[1] + count])
+                        else:
+                            if board[self.pos[0]][self.pos[1] + count].colour != self.colour:
+                                possibleMoves.append([self.pos[0], self.pos[1] + count])
+                            searching2 = False
+                if searching3:
+                    if self.pos[0] + count > 7:
+                        searching3 = False
+                    else:
+                        if board[self.pos[0] + count][self.pos[1]] == None:
+                            possibleMoves.append([self.pos[0] + count, self.pos[1]])
+                        else:
+                            if board[self.pos[0] + count][self.pos[1]].colour != self.colour:
+                                possibleMoves.append([self.pos[0] + count, self.pos[1]])
+                            searching3 = False
+                if searching4:
+                    if self.pos[1] - count < 0:
+                        searching4 = False
+                    else:
+                        if board[self.pos[0]][self.pos[1] - count] == None:
+                            possibleMoves.append([self.pos[0], self.pos[1] - count])
+                        else:
+                            if board[self.pos[0]][self.pos[1] - count].colour != self.colour:
+                                possibleMoves.append([self.pos[0], self.pos[1] - count])
+                            searching4 = False
+                count += 1
         return possibleMoves
+                
 
 class Bishop(Piece):
     def __init__(self, pos, colour):
