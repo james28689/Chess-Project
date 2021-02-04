@@ -1,5 +1,5 @@
 # board.py --- includes any code related to the setup and monitoring of the board.
-from pieces import Piece, Pawn, Rook, Bishop
+from pieces import Knight, Piece, Pawn, Rook, Bishop
 
 # REFACTORED:
 
@@ -16,8 +16,8 @@ class BoardController:
 
         self.board[0][0] = Rook([0, 0], "black")
         self.board[0][7] = Rook([0, 7], "black")
-        self.board[0][1] = Piece([0, 1], "black") # black knight
-        self.board[0][6] = Piece([0, 6], "black") # black knight
+        self.board[0][1] = Knight([0, 1], "black") # black knight
+        self.board[0][6] = Knight([0, 6], "black") # black knight
         self.board[0][2] = Bishop([0, 2], "black") # black bishop
         self.board[0][5] = Bishop([0, 5], "black") # black bishop
         self.board[0][3] = Piece([0, 3], "black") # black king
@@ -25,8 +25,8 @@ class BoardController:
 
         self.board[7][0] = Rook([7, 0], "white")
         self.board[7][7] = Rook([7, 7], "white")
-        self.board[7][1] = Piece([7, 1], "white") # white knight
-        self.board[7][6] = Piece([7, 6], "white") # white knight
+        self.board[7][1] = Knight([7, 1], "white") # white knight
+        self.board[7][6] = Knight([7, 6], "white") # white knight
         self.board[7][2] = Bishop([7, 2], "white") # white bishop
         self.board[7][5] = Bishop([7, 5], "white") # white bishop
         self.board[7][3] = Piece([7, 3], "white") # white king

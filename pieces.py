@@ -1,5 +1,5 @@
 # pieces.py --- includes all class declarations for the various chess pieces
-# TODO: - Clean up disgusting code in getMoves() for Pawn and Rook.
+# TODO: - Clean up disgusting code in getMoves() for Pawn. Move Rook and Bishop movement to external functions for queen.
 
 from typing import Set
 
@@ -197,4 +197,23 @@ class Bishop(Piece):
                             searching4 = False
                 count += 1
         print(possibleMoves)
+        return possibleMoves
+
+class Knight(Piece):
+    def __init__(self, pos, colour):
+        super().__init__(pos, colour)
+        self.name = colour[0].lower() + "N"
+    
+    def getMoves(self, board):
+        possibleMoves = []
+        allRelativeMoves = [[-2,1], [-1,2], [1,2], [2,1], [2,-1], [1, -2], [-1, -2], [-2, -1]]
+
+        for relativeMove in allRelativeMoves:
+            newProposedPos = [self.pos[0] + relativeMove[0], self.pos[1] + relativeMove[1]]
+            if not(newProposedPos[0] < 0 or newProposedPos[0] > 7 or newProposedPos[1] < 0 or newProposedPos[1] > 7):
+                if board[newProposedPos[0]][newProposedPos[1]] == None:
+                    possibleMoves.append(newProposedPos)
+                else:
+                    if board[newProposedPos[0]][newProposedPos[1]].colour != self.colour:
+                        possibleMoves.append(newProposedPos)
         return possibleMoves
