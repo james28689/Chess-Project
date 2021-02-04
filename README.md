@@ -10,7 +10,7 @@ A chess engine made entirely from scratch in Python.
     - [x] Knight
     - [x] Queen
     - [x] King
-- [] Graphics with Pygame or p5.js
-- [] State analysis -
-    - [] Check for checkmate.
-    - [] Check for stalemate.
+- [ ] Graphics with Pygame or p5.js
+- [ ] State analysis -
+    - [ ] Check for checkmate.
+    - [ ] Check for stalemate.
