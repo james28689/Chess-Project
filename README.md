@@ -1,4 +1,4 @@
-### Python Chess Engine
+# Python Chess Engine
 A chess engine made entirely from scratch in Python.
 
 - Pieces are represented with an individual class for each piece. Their main role is to find possible moves for the piece, using the getMoves() function.
@@ -13,6 +13,8 @@ A chess engine made entirely from scratch in Python.
     - [x] Knight
     - [x] Queen
     - [x] King
+- [ ] 'Improve'/Implement the taking of pieces
+    - [ ] Add take mechanic in Piece in which
 - [ ] Graphics with Pygame or p5.js
 - [ ] State analysis -
     - [ ] Check for checkmate.
