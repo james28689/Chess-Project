@@ -24,7 +24,7 @@ while Running:
         print(
             "An example move would be: e2 e4 - where the piece at e2 moves to e4")
     else:
-        boardController.movePiece(move, whiteToPlay)
-        whiteToPlay = not whiteToPlay
+        if boardController.movePiece(move, whiteToPlay):
+            whiteToPlay = not whiteToPlay
 
 # e2 -> 46 -> 64

@@ -67,10 +67,13 @@ class BoardController:
 
         if type(self.board[posDown][posAlong]) == str:
             print("This cannot be moved, this piece type has not yet been created.")
+            return False
         else:
             if [newPosDown, newPosAlong] in self.board[posDown][posAlong].getMoves(self.board) and self.board[posDown][posAlong].colour == neededColor:
                 self.board[posDown][posAlong].pos = [newPosDown, newPosAlong]
                 self.board[newPosDown][newPosAlong] = self.board[posDown][posAlong]
                 self.board[posDown][posAlong] = None
+                return True
             else:
                 print("Invalid move.")
+                return False
