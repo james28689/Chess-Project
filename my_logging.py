@@ -1,14 +1,10 @@
 # logging.py --- all code related to the logging of the game
 from os import listdir
+import datetime
 
 class Logger:
     def __init__(self):
-        sortedfiles = sorted(listdir("logs/"), key = lambda x: int(x[3:-4]))
-        print(sortedfiles)
-        if len(sortedfiles) > 0:
-            self.filename = f"logs/log{str(int(sortedfiles[-1][3:-4])+1)}.txt"
-        else:
-            self.filename = f"logs/log1.txt"
+        self.filename = f"logs/log{str(datetime.datetime.now())}.txt"
         
     
     def addLine(self, move, board, moveNo):

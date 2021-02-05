@@ -13,6 +13,7 @@ A chess engine made entirely from scratch in Python.
     - [x] Knight
     - [x] Queen
     - [x] King
+- [x] Logging
 - [ ] 'Improve'/Implement the taking of pieces
     - [ ] Add take mechanic in Piece in which
 - [ ] Graphics with Pygame or p5.js

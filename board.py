@@ -8,7 +8,9 @@ class BoardController:
         # Setups the board upon creation of the board controller. Once all pieces are implemented, simple strings will be replaced with children of the Piece object.
 
         self.board = [[None for i in range(8)] for i in range(8)]
-
+        self.setBoard()
+    
+    def setBoard(self):
         for piece in self.board[1]:
             self.board[1][self.board[1].index(piece)] = Pawn([1, self.board[1].index(piece)], "black")
         for piece in self.board[6]:
@@ -31,7 +33,7 @@ class BoardController:
         self.board[7][5] = Bishop([7, 5], "white") # white bishop
         self.board[7][3] = King([7, 3], "white") # white king
         self.board[7][4] = Queen([7, 4], "white") # white queen
-    
+
     def display(self):
         # Displays the board contained within the controller. Type checking to be removed once all pieces are implemented.
 
@@ -46,6 +48,21 @@ class BoardController:
                     else:
                         lineStr += piece.getName() + " "
             print(lineStr)
+    
+    def getBoard(self):
+        boardStr = ""
+        for line in self.board:
+            strLine = ""
+            for piece in line:
+                if piece == None:
+                    strLine += "--."
+                else:
+                    strLine += str(piece.getName() + ".")
+            strLine += "/"
+            boardStr += strLine
+        print(boardStr)
+        return boardStr
+
     
     def movePiece(self, move, whiteToPlay):
         # Allows for the moving of pieces on the board.

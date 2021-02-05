@@ -1,6 +1,6 @@
 # main.py --- contains main run loop and basic variable declarations (including state monitoring)
 from board import BoardController
-from logging import Logger
+from my_logging import Logger
 
 whiteToPlay = True
 boardController = BoardController()

@@ -1,9 +1,6 @@
 # pieces.py --- includes all class declarations for the various chess pieces
 # TODO: - Clean up disgusting code in getMoves() for Pawn. Move Rook and Bishop movement to external functions for queen.
 
-from typing import Set
-
-
 class Piece:
     def __init__(self, pos, colour):
         self.pos = pos
@@ -23,7 +20,7 @@ class Piece:
 class Pawn(Piece):
     def __init__(self, pos, colour):
         super().__init__(pos, colour)
-        self.name = colour[0].lower() + "P"
+        self.name = colour[0].lower() + "p"
 
     def getMoves(self, board):
         possibleMoves = []
@@ -78,7 +75,7 @@ class Pawn(Piece):
 class Rook(Piece):
     def __init__(self, pos, colour):
         super().__init__(pos, colour)
-        self.name = colour[0].lower() + "R"
+        self.name = colour[0].lower() + "r"
 
     def getMoves(self, board):
         return getRookMoves(self.pos, board, self.colour)
@@ -87,7 +84,7 @@ class Rook(Piece):
 class Bishop(Piece):
     def __init__(self, pos, colour):
         super().__init__(pos, colour)
-        self.name = colour[0].lower() + "B"
+        self.name = colour[0].lower() + "b"
     
     def getMoves(self, board):
         return getBishopMoves(self.pos, board, self.colour)
@@ -95,7 +92,7 @@ class Bishop(Piece):
 class Knight(Piece):
     def __init__(self, pos, colour):
         super().__init__(pos, colour)
-        self.name = colour[0].lower() + "N"
+        self.name = colour[0].lower() + "n"
     
     def getMoves(self, board):
         possibleMoves = []
@@ -114,7 +111,7 @@ class Knight(Piece):
 class Queen(Piece):
     def __init__(self, pos, colour):
         super().__init__(pos, colour)
-        self.name = colour[0].lower() + "Q"
+        self.name = colour[0].lower() + "q"
     
     def getMoves(self, board):
         return getRookMoves(self.pos, board, self.colour) + getBishopMoves(self.pos, board, self.colour)
@@ -122,7 +119,7 @@ class Queen(Piece):
 class King(Piece):
     def __init__(self, pos, colour):
         super().__init__(pos, colour)
-        self.name = colour[0].lower() + "K"
+        self.name = colour[0].lower() + "k"
     
     def getMoves(self, board):
         possibleMoves = getKingMoves(self.pos, board, self.colour, self.moveNo)
