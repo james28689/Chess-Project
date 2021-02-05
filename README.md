@@ -21,7 +21,7 @@ Can be played using either the terminal by running main.py, or through a web bro
     - [x] Create Logger class.
     - [x] Create log files with name of date and time.
     - [x] Store moves using standard algabraic notation (SAN).
-- [ ] Front End
+- [ ] Front End -
     - [x] Setup basic Flask app.
     - [x] Interface BoardController with Flask
     - [x] Create static HTML, JS, and CSS files.
@@ -31,7 +31,9 @@ Can be played using either the terminal by running main.py, or through a web bro
     - [ ] Detect mouse clicks and show possible moves.
     - [ ] Allow pieces to be moved on browser.
 - [ ] 'Improve'/Implement the taking of pieces
-    - [ ] Add take mechanic in Piece in which
+- [ ] Add advanced rules -
+    - [ ] Castling
+    - [ ] En passant
 - [ ] State analysis -
     - [ ] Check for checkmate.
     - [ ] Check for stalemate.

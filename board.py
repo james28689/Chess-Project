@@ -11,6 +11,8 @@ class BoardController:
         self.setBoard()
     
     def setBoard(self):
+        self.board = [[None for i in range(8)] for i in range(8)]
+
         for piece in self.board[1]:
             self.board[1][self.board[1].index(piece)] = Pawn([1, self.board[1].index(piece)], "black")
         for piece in self.board[6]:
@@ -60,7 +62,6 @@ class BoardController:
                     strLine += str(piece.getName() + ".")
             strLine += "/"
             boardStr += strLine
-        print(boardStr)
         return boardStr
 
     
