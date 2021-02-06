@@ -39,6 +39,7 @@ def move(move):
                 turn += 1
             logger.addLine(formattedMove, boardController.board, turn)
             whiteToPlay = not whiteToPlay
+    print(whiteToPlay)
     return "Done."
 
 @app.route("/reset")
