@@ -3,15 +3,16 @@ url = "http://localhost:5000"
 labelsX = ["a", "b", "c", "d", "e", "f", "g", "h"];
 labelsY = ["1", "2", "3", "4", "5", "6", "7", "8"];
 
-pieces = ["p", "r", "b", "n", "q", "k"]
+pieces = ["p", "r", "b", "n", "q", "k"];
 
-player = "white"
+player = "white";
 
-pieceSelected = false
-selected = ""
+pieceSelected = false;
+selected = "";
 
-jsBoard = []
-highlightedSquares = []
+jsBoard = [];
+highlightedSquares = [];
+yellowHighlightSquare = "";
 
 function move(move) {
     fetch(url + "/move/" + move)
@@ -42,9 +43,12 @@ function drawBoard(imgs, board) {
                 fill(167);
             }
 
-            currentSquare = labelsX[x] + labelsY[7-y];
-            if (highlightedSquares.includes(currentSquare)) {
+            currentSquareFilling = labelsX[x] + labelsY[7-y];
+            if (highlightedSquares.includes(currentSquareFilling)) {
                 fill(0, 255, 0);
+            }
+            if (currentSquareFilling == yellowHighlightSquare) {
+                fill(255, 255, 0);
             }
 
             rect(x * width / 8, y * height / 8, width / 8, height / 8);
@@ -61,6 +65,13 @@ function drawBoard(imgs, board) {
     }
 }
 
+function resetBoard() {
+    fetch(url + "/reset");
+    yellowHighlightSquare = "";
+    highlightedSquares = [];
+    drawBoard();
+}
+
 function mouseClicked() {
     currentSquare = labelsX[Math.floor(mouseX/100)] + labelsY[7-Math.floor(mouseY/100)]
     currentSquareIndex = [8-parseInt(currentSquare[1]), labelsX.indexOf(currentSquare[0])]
@@ -70,6 +81,7 @@ function mouseClicked() {
         if (jsBoard[currentSquareIndex[0]][currentSquareIndex[1]] != "--") {
             if (jsBoard[currentSquareIndex[0]][currentSquareIndex[1]][0] === player[0]) {
                 selected = currentSquare;
+                yellowHighlightSquare = currentSquare;
                 possibleMoves = getMoves(selected);
                 highlightedSquares = possibleMoves;
                 pieceSelected = true
@@ -82,12 +94,14 @@ function mouseClicked() {
             selected = "";
             pieceSelected = false;
             highlightedSquares = [];
+            yellowHighlightSquare = "";
             // drawBoard(imgs, jsBoard);
         } else {
             if (jsBoard[currentSquareIndex[0]][currentSquareIndex[1]][0] === player[0]) {
                 selected = currentSquare;
                 possibleMoves = getMoves(selected);
                 highlightedSquares = possibleMoves;
+                yellowHighlightSquare = currentSquare;
             }
         }
     }

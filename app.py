@@ -45,11 +45,12 @@ def move(move):
 @app.route("/reset")
 def reset():
     boardController.setBoard()
+    logger = Logger()
     return "Board reset."
 
 def get_message():
     s = boardController.getBoard()
-    time.sleep(0.5)
+    time.sleep(0.2)
     return json.dumps(s)
 
 @app.route("/stream")
