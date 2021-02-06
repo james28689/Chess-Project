@@ -21,15 +21,16 @@ Can be played using either the terminal by running main.py, or through a web bro
     - [x] Create Logger class.
     - [x] Create log files with name of date and time.
     - [x] Store moves using standard algabraic notation (SAN).
-- [ ] Front End -
+- [x] Front End -
     - [x] Setup basic Flask app.
     - [x] Interface BoardController with Flask
     - [x] Create static HTML, JS, and CSS files.
     - [x] Allow fetch requests to Flask to call movePiece() and getMoves(). 
     - [x] Draw board with JS and p5.js
     - [x] Display pieces with p5.js
-    - [ ] Detect mouse clicks and show possible moves.
-    - [ ] Allow pieces to be moved on browser.
+    - [x] Detect mouse clicks and show possible moves.
+    - [x] Allow pieces to be moved on browser.
+- [ ] Thoroughly check front end.
 - [ ] 'Improve'/Implement the taking of pieces
 - [ ] Add advanced rules -
     - [ ] Castling
