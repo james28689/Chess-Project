@@ -25,52 +25,32 @@ class Pawn(Piece):
     def getMoves(self, board):
         possibleMoves = []
 
+        standard = [-1,0]
+        ifOccupied = [[-1,-1], [-1,1]]
+        ifFirst = [-2,0]
         if self.colour == "black":
-            try:
-                if board[self.pos[0]+1][self.pos[1]] == None:
-                    possibleMoves.append([self.pos[0]+1, self.pos[1]])
-            except:
-                pass
-            try:
-                if self.moveNo == 0:
-                    if board[self.pos[0]+2][self.pos[1]] == None:
-                        possibleMoves.append([self.pos[0]+2, self.pos[1]])
-            except:
-                pass
-            try:
-                if board[self.pos[0]+1][self.pos[1]+1] != None:
-                    possibleMoves.append([self.pos[0]+1, self.pos[1]+1])
-            except:
-                pass
-            try:
-                if board[self.pos[0]+1][self.pos[1]-1] != None:
-                    possibleMoves.append([self.pos[0]+1, self.pos[1]-1])
-            except:
-                pass
-        else:
-            try:
-                if board[self.pos[0]-1][self.pos[1]] == None:
-                    possibleMoves.append([self.pos[0]-1, self.pos[1]])
-            except:
-                pass
-            try:
-                if self.moveNo == 0:
-                    if board[self.pos[0]-2][self.pos[1]] == None:
-                        possibleMoves.append([self.pos[0]-2, self.pos[1]])
-            except:
-                pass
-            try:
-                if board[self.pos[0]-1][self.pos[1]+1] != None:
-                    possibleMoves.append([self.pos[0]-1, self.pos[1]+1])
-            except:
-                pass
-            try:
-                if board[self.pos[0]-1][self.pos[1]-1] != None:
-                    possibleMoves.append([self.pos[0]-1, self.pos[1]-1])
-            except:
-                pass
+            standard[0] *= -1
+            ifOccupied[0][0] *= -1
+            ifOccupied[1][0] *= -1
+            ifFirst[0] *= -1
 
+        if self.pos[0] + standard[0] <= 7:
+            if board[self.pos[0] + standard[0]][self.pos[1]] == None:
+                possibleMoves.append([self.pos[0] + standard[0], self.pos[1]])
+        
+        for move in ifOccupied:
+            proposedMove = [self.pos[0] + move[0], self.pos[1] + move[1]]
+            if proposedMove[0] <= 7 and proposedMove[0] >= 0 and proposedMove[1] <= 7 and proposedMove[1] >= 0:
+                if board[proposedMove[0]][proposedMove[1]] != None:
+                    if board[proposedMove[0]][proposedMove[1]].colour != self.colour:
+                        possibleMoves.append(proposedMove)
+        
+        if self.moveNo == 0:
+            possibleMoves.append([self.pos[0] + ifFirst[0], self.pos[1] + ifFirst[1]])
+        
         return possibleMoves
+        
+
 
 class Rook(Piece):
     def __init__(self, pos, colour):
