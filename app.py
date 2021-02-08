@@ -2,6 +2,7 @@ from flask import Flask, Response
 import json, time
 from board import BoardController
 from my_logging import Logger
+from state_analysis import analyseBoard
 
 app = Flask(__name__, static_url_path="/static")
 
@@ -39,12 +40,19 @@ def move(move):
                 turn += 1
             logger.addLine(formattedMove, boardController.board, turn)
             whiteToPlay = not whiteToPlay
-    print(whiteToPlay)
+    
+    analysis = analyseBoard(boardController.board)
+    print(analysis)
+    if analysis != "-":
+        return analysis
+
     return "Done."
 
 @app.route("/reset")
 def reset():
+    global whiteToPlay
     boardController.setBoard()
+    whiteToPlay = True
     logger = Logger()
     return "Board reset."
 

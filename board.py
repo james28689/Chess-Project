@@ -83,12 +83,15 @@ class BoardController:
 
         neededColor = "white" if whiteToPlay else "black"
 
-        if [newPosDown, newPosAlong] in self.board[posDown][posAlong].getMoves(self.board) and self.board[posDown][posAlong].colour == neededColor:
-            self.board[posDown][posAlong].moveNo += 1
-            self.board[posDown][posAlong].pos = [newPosDown, newPosAlong]
-            self.board[newPosDown][newPosAlong] = self.board[posDown][posAlong]
-            self.board[posDown][posAlong] = None
-            return True
+        if [newPosDown, newPosAlong] in self.board[posDown][posAlong].getMoves(self.board):
+            if self.board[posDown][posAlong].colour == neededColor:
+                self.board[posDown][posAlong].moveNo += 1
+                self.board[posDown][posAlong].pos = [newPosDown, newPosAlong]
+                self.board[newPosDown][newPosAlong] = self.board[posDown][posAlong]
+                self.board[posDown][posAlong] = None
+                return True
+            else:
+                print("Colour issue. This should never show.")
         else:
             print("Invalid move.")
             return False

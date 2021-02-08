@@ -16,6 +16,12 @@ yellowHighlightSquare = "";
 
 function move(move) {
     fetch(url + "/move/" + move)
+        .then(response => response.text())
+        .then((response) => {
+            if (response != "Done.") {
+                alert(response);
+            }
+        })
     player = player === "white" ? "black" : "white";
 }
 
