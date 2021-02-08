@@ -1,7 +1,7 @@
 # Python Chess Engine
 A chess engine made entirely from scratch in Python.
 
-Can be played using either the terminal by running main.py, or through a web browser on http://localhost:5000 by running app.py.
+Can be played using either the terminal by running main.py, or through a web browser on http://localhost:5000 by running app.py (requires Flask).
 
 - Pieces are represented with an individual class for each piece. Their main role is to find possible moves for the piece, using the getMoves() function.
 - Board contained within a BoardController class, which controls the moving of pieces and the displaying of the board.

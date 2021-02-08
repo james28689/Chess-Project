@@ -1,5 +1,4 @@
 # logging.py --- all code related to the logging of the game
-from os import listdir
 import datetime
 
 class Logger:
