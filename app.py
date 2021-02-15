@@ -21,7 +21,6 @@ def getMoveForPiece(piece):
     x = labelsX.index(piece[0])
     y = 8 - int(piece[1])
     moves = boardController.board[y][x].getMoves(boardController.board)
-    print(moves)
     movesAsStrings = []
     for move in moves:
         moveX = labelsX[move[1]]
@@ -42,7 +41,6 @@ def move(move):
             whiteToPlay = not whiteToPlay
     
     analysis = analyseBoard(boardController.board)
-    print(analysis)
     if analysis != "-":
         return analysis
 

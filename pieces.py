@@ -79,6 +79,8 @@ class King(Piece):
 
         allMoves = checkAllMoves(board, self.colour)
 
+        print(possibleMoves, allMoves)
+
         for move in possibleMoves:
             if move in allMoves:
                 possibleMoves.remove(move)

@@ -38,7 +38,7 @@ Can be played using either the terminal by running main.py, or through a web bro
 - [ ] State analysis -
     - [x] Check for checkmate.
     - [ ] Check for stalemate.
-- [ ] Integrate state analysis with front end.
+- [x] Integrate state analysis with front end.
 
 ## Known Errors:
 - [x] Pawns can take own colour.

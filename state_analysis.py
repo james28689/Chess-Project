@@ -5,12 +5,14 @@ def analyseBoard(board):
     whiteCheckmate = findCheckmate(board, "white")
     blackCheckmate = findCheckmate(board, "black")
 
-    #stalemate = findStalemate(board)
+    stalemate = findStalemate(board)
 
     if whiteCheckmate:
         return "Checkmate - white wins!"
     if blackCheckmate:
         return "Checkmate - black wins!"
+    if stalemate:
+        return "Stalemate - draw"
     
     return "-"
 
@@ -25,43 +27,16 @@ def findCheckmate(board, colour):
                     if piece.colour == oppositeColour:
                         king = piece
     allMoves = getMovesIncludingKing(board)
-    print(allMoves)
-    print(len(king.getMoves(board)))
-    print(king.pos)
     if len(king.getMoves(board)) == 0 and king.pos in allMoves:
         return True
     else:
         return False
 
 def findStalemate(board):
-    colour = "white"
-    oppositeColour = "black"
-
-    king = Piece([0,0], colour)
-    for rank in board:
-        for piece in rank:
-            if piece != None:
-                if piece.getName()[1] == "k":
-                    if piece.colour == oppositeColour:
-                        king = piece
-    allMoves = getMovesIncludingKing(board)
-    if len(king.getMoves(board)) == 0 and king.pos not in allMoves:
+    if len(checkAllMoves(board, "white")) == 0:
         return True
-
-    colour = "black"
-    oppositeColour = "white"
-
-    king = Piece([0,0], colour)
-    for rank in board:
-        for piece in rank:
-            if piece != None:
-                if piece.getName()[1] == "k":
-                    if piece.colour == oppositeColour:
-                        king = piece
-    allMoves = getMovesIncludingKing(board)
-    if len(king.getMoves(board)) == 0 and king.pos not in allMoves:
+    if len(checkAllMoves(board, "black")) == 0:
         return True
-    
     return False
 
 def getMovesIncludingKing(board):

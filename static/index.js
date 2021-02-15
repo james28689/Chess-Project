@@ -75,6 +75,7 @@ function resetBoard() {
     fetch(url + "/reset");
     yellowHighlightSquare = "";
     highlightedSquares = [];
+    player = "white";
     drawBoard();
 }
 
