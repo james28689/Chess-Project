@@ -1,4 +1,4 @@
-url = "http://localhost:5000";
+url = "http://0.0.0.0:5000";
 
 labelsX = ["a", "b", "c", "d", "e", "f", "g", "h"];
 labelsY = ["1", "2", "3", "4", "5", "6", "7", "8"];
@@ -117,7 +117,7 @@ function mouseClicked() {
 imgs = {}
 
 function startup() {
-    var eventSource = new EventSource("/stream")
+    var eventSource = new EventSource(`${url}/stream`)
     eventSource.onmessage = (e) => {
         board = e.data
         board = board.substring(1, board.length-1)
