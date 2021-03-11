@@ -33,18 +33,21 @@ def move(move):
     global whiteToPlay
     global turn
 
+    returnValue = "Failed."
+
     formattedMove = move[0:2] + " " + move[2:4]
     if boardController.movePiece(formattedMove, whiteToPlay):
             if whiteToPlay:
                 turn += 1
             logger.addLine(formattedMove, boardController.board, turn)
             whiteToPlay = not whiteToPlay
+            returnValue = "Completed Successfully."
     
     analysis = analyseBoard(boardController.board)
     if analysis != "-":
         return analysis
 
-    return "Done."
+    return returnValue
 
 @app.route("/reset")
 def reset():
